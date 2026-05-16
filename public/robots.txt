@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /adminin4k/
+Disallow: /api/
+
+Sitemap: https://www.codein4k.com/sitemap.xml

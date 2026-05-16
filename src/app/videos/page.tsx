@@ -5,68 +5,154 @@ import Footer from '@/components/layout/Footer'
 import VideoGrid from '@/components/videos/VideoGrid'
 import VideoSearch from '@/components/videos/VideoSearch'
 import VideoFilters from '@/components/videos/VideoFilters'
+import JsonLd from '@/components/seo/JsonLd'
 import { createClient } from '@/lib/supabase/server'
-import { VIDEOS_PER_PAGE } from '@/lib/constants'
+import {
+  ORGANIZATION_SCHEMA_ID,
+  SITE_NAME,
+  SITE_URL,
+  VIDEOS_PER_PAGE,
+  WEBSITE_SCHEMA_ID,
+} from '@/lib/constants'
+import { getYouTubeThumbnail } from '@/lib/utils'
 import { ChevronLeft, ChevronRight, PlaySquare } from 'lucide-react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
+import type { Video } from '@/types'
+
+// ── Metadata ─────────────────────────────────────────────────────────────────
+// Title is intentionally keyword-heavy: captures searches like
+// "Node.js tutorial", "TypeScript video", "Docker programming", etc.
 
 export const metadata: Metadata = {
-  title: 'Videos',
+  title: 'Video Library — Node.js, TypeScript, Docker, CSS, Git & More',
   description:
-    'Browse all CodeIn4K programming tutorials, walkthroughs, and deep dives.',
+    'Browse all CodeIn4K programming tutorials. In-depth videos on Node.js, TypeScript, ' +
+    'Docker, REST APIs, CSS Grid, Git workflows, PostgreSQL, WebSockets, CI/CD, and system design. ' +
+    'New videos every week — free.',
+  keywords: [
+    'programming tutorials playlist',
+    'Node.js videos',
+    'TypeScript videos',
+    'Docker tutorial videos',
+    'CSS Grid tutorial',
+    'Git tutorial video',
+    'PostgreSQL tutorial video',
+    'REST API tutorial video',
+    'backend development videos',
+    'frontend development videos',
+    'DevOps tutorial videos',
+    'web development playlist',
+    'coding tutorial library',
+    'software engineering videos',
+    'free programming videos',
+    'CodeIn4K videos',
+  ],
+  alternates: {
+    canonical: `${SITE_URL}/videos`,
+  },
+  openGraph: {
+    url:   `${SITE_URL}/videos`,
+    title: `Video Library — ${SITE_NAME}`,
+    description:
+      'Browse all CodeIn4K programming tutorials — Node.js, TypeScript, Docker, CSS, Git, PostgreSQL and more.',
+  },
 }
 
 export const revalidate = 60
+
+// ── Data fetching ─────────────────────────────────────────────────────────────
 
 interface PageProps {
   searchParams: Promise<{ q?: string; tag?: string; page?: string }>
 }
 
 async function getVideos(q: string, tag: string, page: number) {
-  const supabase = await createClient()
-  const from = (page - 1) * VIDEOS_PER_PAGE
-  const to = from + VIDEOS_PER_PAGE - 1
+  try {
+    const supabase = await createClient()
+    const from = (page - 1) * VIDEOS_PER_PAGE
+    const to   = from + VIDEOS_PER_PAGE - 1
 
-  let query = supabase
-    .from('videos')
-    .select('*', { count: 'exact' })
-    .order('published_at', { ascending: false })
+    let query = supabase
+      .from('videos')
+      .select('*', { count: 'exact' })
+      .order('published_at', { ascending: false })
 
-  if (q) {
-    query = query.or(`title.ilike.%${q}%,description.ilike.%${q}%`)
-  }
-  if (tag) {
-    query = query.contains('tags', [tag])
-  }
+    if (q)   query = query.or(`title.ilike.%${q}%,description.ilike.%${q}%`)
+    if (tag)  query = query.contains('tags', [tag])
 
-  const { data, count } = await query.range(from, to)
+    const { data, count } = await query.range(from, to)
 
-  // All tags for filter chips
-  const { data: allVideos } = await supabase.from('videos').select('tags')
-  const allTags = Array.from(
-    new Set((allVideos ?? []).flatMap((v) => v.tags ?? []))
-  ).sort()
+    const { data: allVideos } = await supabase.from('videos').select('tags')
+    const allTags = Array.from(
+      new Set((allVideos ?? []).flatMap((v) => v.tags ?? []))
+    ).sort()
 
-  return {
-    videos: data ?? [],
-    total: count ?? 0,
-    tags: allTags,
-    totalPages: Math.ceil((count ?? 0) / VIDEOS_PER_PAGE),
+    return {
+      videos:     data ?? [],
+      total:      count ?? 0,
+      tags:       allTags,
+      totalPages: Math.ceil((count ?? 0) / VIDEOS_PER_PAGE),
+    }
+  } catch {
+    return { videos: [], total: 0, tags: [], totalPages: 0 }
   }
 }
 
+// ── JSON-LD: CollectionPage + ItemList ────────────────────────────────────────
+// CollectionPage tells Google this is a curated list of educational resources.
+// ItemList gives individual VideoObject entries so each video can appear in
+// video rich results from the library page itself.
+
+function buildCollectionPageSchema(videos: Video[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type':    'CollectionPage',
+    '@id':      `${SITE_URL}/videos#collectionpage`,
+    name:       `Programming Tutorial Videos — ${SITE_NAME}`,
+    description:
+      'A curated library of in-depth programming tutorials covering Node.js, TypeScript, Docker, REST APIs, CSS, Git, PostgreSQL, and more.',
+    url:        `${SITE_URL}/videos`,
+    inLanguage: 'en-US',
+    isPartOf:   { '@id': WEBSITE_SCHEMA_ID },
+    publisher:  { '@id': ORGANIZATION_SCHEMA_ID },
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home',   item: SITE_URL },
+        { '@type': 'ListItem', position: 2, name: 'Videos', item: `${SITE_URL}/videos` },
+      ],
+    },
+    // ItemList gives individual video entries — Google indexes these for video rich results
+    mainEntity: {
+      '@type':           'ItemList',
+      name:              'All Programming Tutorials',
+      numberOfItems:     videos.length,
+      itemListElement:   videos.map((v, i) => ({
+        '@type':    'ListItem',
+        position:   i + 1,
+        name:       v.title,
+        url:        `${SITE_URL}/videos/${v.slug}`,
+        image:      v.thumbnail_url || (v.youtube_url ? getYouTubeThumbnail(v.youtube_url) : undefined),
+        description: v.description,
+      })),
+    },
+  }
+}
+
+// ── Page ──────────────────────────────────────────────────────────────────────
+
 export default async function VideosPage({ searchParams }: PageProps) {
-  const sp = await searchParams
-  const q = sp.q ?? ''
-  const tag = sp.tag ?? ''
+  const sp   = await searchParams
+  const q    = sp.q    ?? ''
+  const tag  = sp.tag  ?? ''
   const page = Math.max(1, parseInt(sp.page ?? '1', 10))
 
   const { videos, total, tags, totalPages } = await getVideos(q, tag, page)
 
   const buildHref = (p: number) => {
     const params = new URLSearchParams()
-    if (q) params.set('q', q)
+    if (q)   params.set('q', q)
     if (tag) params.set('tag', tag)
     if (p > 1) params.set('page', String(p))
     const s = params.toString()
@@ -75,6 +161,11 @@ export default async function VideosPage({ searchParams }: PageProps) {
 
   return (
     <>
+      {/* Only render schema on unfiltered first page — filtered views shouldn't be indexed */}
+      {!q && !tag && page === 1 && (
+        <JsonLd data={buildCollectionPageSchema(videos)} />
+      )}
+
       <Navbar />
       <main className="min-h-screen pt-20">
         {/* Page Header */}

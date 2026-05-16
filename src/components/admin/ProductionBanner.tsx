@@ -1,7 +1,7 @@
 'use client'
 
 import { forwardRef } from 'react'
-import { type ProductionStatus, PRODUCTION_STEPS } from '@/types'
+import { type ProductionStatus } from '@/types'
 import { getProgressPercentage, getStepLabel } from '@/lib/utils'
 
 interface ProductionBannerProps {

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Home, ArrowLeft, Search } from 'lucide-react'
+import { Home, Search } from 'lucide-react'
 import Button from '@/components/ui/Button'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'

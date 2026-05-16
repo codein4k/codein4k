@@ -105,7 +105,8 @@ export const metadata: Metadata = {
 
   // ── Verification ── (add your tokens from Google Search Console / Bing Webmaster)
   verification: {
-    google: 'oiqXYe11E5RRcv_7fcHIqxtP2L_-unQRVUC3KfO2oQg'
+    google: 'oiqXYe11E5RRcv_7fcHIqxtP2L_-unQRVUC3KfO2oQg',
+    other: {'msvalidate.01':['271A03E02C3A0477F2258BA04C9D7FB2']}
     // yandex: 'YOUR_YANDEX_TOKEN',
     // bing:   'YOUR_BING_TOKEN',
   },

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+  xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"
+>
+
+  <!-- ── Homepage ── -->
+  <url>
+    <loc>https://www.codein4k.com/</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- ── Videos Library ── -->
+  <url>
+    <loc>https://www.codein4k.com/videos</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- ══════════════════════════════════════════
+       Individual Video Pages
+       Update this list whenever you publish a new video.
+       Tip: export from admin → add an entry here.
+       ══════════════════════════════════════════ -->
+
+  <url>
+    <loc>https://www.codein4k.com/videos</loc>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/fgTGADljAeg/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>Build a REST API with Node.js &amp; Express from Scratch</video:title>
+      <video:description>Complete guide to building a production-ready REST API using Node.js and Express. Covers routing, middleware, JWT authentication, error handling, and deployment best practices.</video:description>
+      <video:player_loc>https://www.youtube.com/embed/fgTGADljAeg</video:player_loc>
+      <video:publication_date>2024-03-10</video:publication_date>
+      <video:tag>Node.js</video:tag>
+      <video:tag>Express</video:tag>
+      <video:tag>REST API</video:tag>
+      <video:tag>Backend</video:tag>
+      <video:tag>JavaScript</video:tag>
+      <video:category>Technology</video:category>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+
+  <url>
+    <loc>https://www.codein4k.com/videos</loc>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/nViEqpgwxHE/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>Mastering TypeScript Generics — Complete Deep Dive</video:title>
+      <video:description>Stop avoiding TypeScript generics! Break down every concept from basic constraints to advanced mapped types, conditional types, and real-world usage patterns.</video:description>
+      <video:player_loc>https://www.youtube.com/embed/nViEqpgwxHE</video:player_loc>
+      <video:publication_date>2024-02-28</video:publication_date>
+      <video:tag>TypeScript</video:tag>
+      <video:tag>Generics</video:tag>
+      <video:tag>JavaScript</video:tag>
+      <video:category>Technology</video:category>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+
+  <url>
+    <loc>https://www.codein4k.com/videos</loc>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/pg19Z8LL06w/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>Docker for Developers — Zero to Production</video:title>
+      <video:description>Everything you need to know about Docker as a developer. Containerize a full-stack app, set up Docker Compose, and deploy with proper multi-stage builds.</video:description>
+      <video:player_loc>https://www.youtube.com/embed/pg19Z8LL06w</video:player_loc>
+      <video:publication_date>2024-02-10</video:publication_date>
+      <video:tag>Docker</video:tag>
+      <video:tag>DevOps</video:tag>
+      <video:tag>Containers</video:tag>
+      <video:category>Technology</video:category>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+
+  <url>
+    <loc>https://www.codein4k.com/videos</loc>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/EiNiSFIPIQE/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>CSS Grid Mastery — Build Complex Layouts with Ease</video:title>
+      <video:description>Master CSS Grid with 5 real-world layouts: magazine grid, dashboard, and responsive photo gallery. Stop fighting with CSS layouts.</video:description>
+      <video:player_loc>https://www.youtube.com/embed/EiNiSFIPIQE</video:player_loc>
+      <video:publication_date>2024-01-25</video:publication_date>
+      <video:tag>CSS</video:tag>
+      <video:tag>CSS Grid</video:tag>
+      <video:tag>Frontend</video:tag>
+      <video:category>Technology</video:category>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+
+  <url>
+    <loc>https://www.codein4k.com/videos</loc>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/DVRQoVRzMIY/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>Git &amp; GitHub Workflow — Professional Team Practices</video:title>
+      <video:description>The Git workflow used by professional dev teams. Branching strategies, PR reviews, rebasing vs merging, CI/CD integration, and writing commits that mean something.</video:description>
+      <video:player_loc>https://www.youtube.com/embed/DVRQoVRzMIY</video:player_loc>
+      <video:publication_date>2024-01-08</video:publication_date>
+      <video:tag>Git</video:tag>
+      <video:tag>GitHub</video:tag>
+      <video:tag>DevOps</video:tag>
+      <video:category>Technology</video:category>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+
+  <url>
+    <loc>https://www.codein4k.com/videos</loc>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/qw--VYLpxG4/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>PostgreSQL for Backend Developers — Complete Guide</video:title>
+      <video:description>Deep dive into PostgreSQL from a backend developer perspective. Indexing, query optimization, relationships, transactions, and Prisma ORM integration.</video:description>
+      <video:player_loc>https://www.youtube.com/embed/qw--VYLpxG4</video:player_loc>
+      <video:publication_date>2023-12-18</video:publication_date>
+      <video:tag>PostgreSQL</video:tag>
+      <video:tag>Database</video:tag>
+      <video:tag>SQL</video:tag>
+      <video:tag>Backend</video:tag>
+      <video:category>Technology</video:category>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+
+</urlset>

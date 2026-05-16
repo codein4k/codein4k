@@ -1,0 +1,47 @@
+# =====================================================
+# CodeIn4K — robots.txt
+# https://www.codein4k.com
+# =====================================================
+
+User-agent: *
+Allow: /
+Allow: /videos
+Allow: /data/videos.json
+Allow: /data/current-video.json
+
+# Block admin panel from all crawlers
+Disallow: /adminin4k/
+Disallow: /adminin4k
+
+# Block internal JSON data from being indexed as pages
+Disallow: /data/
+
+# Block assets from being indexed as pages
+Disallow: /assets/
+
+# Sitemap location
+Sitemap: https://www.codein4k.com/sitemap.xml
+
+# ── Per-bot tuning ──
+
+# Allow Google to crawl everything (same as *)
+User-agent: Googlebot
+Allow: /
+
+# Allow Bing
+User-agent: Bingbot
+Allow: /
+
+# Allow YouTube preview fetcher
+User-agent: YouTubeFetcher
+Allow: /
+
+# Block AI training scrapers that ignore content
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /

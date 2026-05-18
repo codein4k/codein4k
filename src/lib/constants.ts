@@ -4,9 +4,9 @@ export const SITE_URL     = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.cod
 
 // Keyword-rich description used in meta tags and JSON-LD
 export const SITE_DESCRIPTION =
-  'Master modern programming with deep-dive tutorials on Node.js, TypeScript, Docker, REST APIs, ' +
-  'CSS, Git, PostgreSQL, CI/CD, system design, and more. Free high-quality coding education on YouTube ' +
-  '— from backend and frontend to DevOps and software architecture.'
+  'Master programming with deep-dive tutorials across all languages and technologies — TypeScript, Python, ' +
+  'Docker, REST APIs, CSS, Git, databases, CI/CD, system design, and more. Free high-quality coding education ' +
+  'on YouTube — from backend and frontend to DevOps and software architecture.'
 
 // Full keyword list — used in <head> and helps crawlers understand topic coverage
 export const SITE_KEYWORDS = [

@@ -1,6 +1,6 @@
 export const SITE_NAME    = 'CodeIn4K'
 export const SITE_TAGLINE = 'A Powerful Dose of Learning'
-export const SITE_URL     = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.codein4k.com'
+export const SITE_URL     = process.env.NEXT_PUBLIC_SITE_URL || 'https://codein4k.com'
 
 // Keyword-rich description used in meta tags and JSON-LD
 export const SITE_DESCRIPTION =

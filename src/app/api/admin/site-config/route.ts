@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { revalidateTag } from 'next/cache'
 import { createServiceClient } from '@/lib/supabase/server'
 import { verifyAdminRequest } from '@/lib/admin-auth'
 import type { SiteConfig } from '@/lib/site-config'
@@ -22,5 +23,8 @@ export async function PUT(request: NextRequest) {
     .upsert(rows, { onConflict: 'key' })
 
   if (error) return NextResponse.json({ error: error.message }, { status: 400 })
+
+  revalidateTag('site-config')
+
   return NextResponse.json({ ok: true })
 }

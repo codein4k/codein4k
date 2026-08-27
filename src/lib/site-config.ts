@@ -1,3 +1,4 @@
+import { unstable_cache } from 'next/cache'
 import { createStaticClient } from '@/lib/supabase/server'
 
 export interface SiteConfig {
@@ -16,7 +17,7 @@ const DEFAULTS: SiteConfig = {
   logo_url:         '/logo.png',
 }
 
-export async function getSiteConfig(): Promise<SiteConfig> {
+async function fetchSiteConfig(): Promise<SiteConfig> {
   try {
     const supabase = createStaticClient()
     const { data } = await supabase.from('site_config').select('key, value')
@@ -34,3 +35,10 @@ export async function getSiteConfig(): Promise<SiteConfig> {
     return DEFAULTS
   }
 }
+
+// Cached with tag so the admin can bust it instantly via revalidateTag('site-config')
+export const getSiteConfig = unstable_cache(
+  fetchSiteConfig,
+  ['site-config'],
+  { tags: ['site-config'], revalidate: 3600 }
+)

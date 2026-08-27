@@ -4,19 +4,16 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { LayoutDashboard, Video, Clapperboard, LogOut, Menu, X } from 'lucide-react'
+import { LayoutDashboard, Video, Clapperboard, Settings, LogOut, Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import toast from 'react-hot-toast'
 
 const NAV_ITEMS = [
-  { href: '/adminin4k/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-  { href: '/adminin4k/dashboard/videos', icon: Video, label: 'Videos' },
-  {
-    href: '/adminin4k/dashboard/production',
-    icon: Clapperboard,
-    label: 'Production',
-  },
+  { href: '/adminin4k/dashboard',            icon: LayoutDashboard, label: 'Dashboard'  },
+  { href: '/adminin4k/dashboard/videos',     icon: Video,           label: 'Videos'     },
+  { href: '/adminin4k/dashboard/production', icon: Clapperboard,    label: 'Production' },
+  { href: '/adminin4k/dashboard/settings',   icon: Settings,        label: 'Settings'   },
 ]
 
 export default function AdminNav() {

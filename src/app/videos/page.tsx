@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
-import Navbar from '@/components/layout/Navbar'
+import NavbarWrapper from '@/components/layout/NavbarWrapper'
 import Footer from '@/components/layout/Footer'
 import VideoGrid from '@/components/videos/VideoGrid'
 import VideoSearch from '@/components/videos/VideoSearch'
@@ -166,7 +166,7 @@ export default async function VideosPage({ searchParams }: PageProps) {
         <JsonLd data={buildCollectionPageSchema(videos)} />
       )}
 
-      <Navbar />
+      <NavbarWrapper />
       <main className="min-h-screen pt-20">
         {/* Page Header */}
         <div className="relative border-b border-[rgb(var(--border))] bg-[rgb(var(--background))]">

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Video, Clapperboard, ArrowRight, TrendingUp } from 'lucide-react'
+import { Video, Clapperboard, Settings, ArrowRight, TrendingUp } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 
 export const metadata: Metadata = { title: 'Dashboard' }
@@ -86,6 +86,13 @@ export default async function DashboardPage() {
           >
             <Clapperboard className="h-4 w-4" />
             Update Production
+          </Link>
+          <Link
+            href="/adminin4k/dashboard/settings"
+            className="flex items-center gap-2 rounded-xl border border-brand-blue/30 bg-brand-blue/5 px-4 py-2.5 text-sm font-medium text-brand-blue transition-all hover:bg-brand-blue/10"
+          >
+            <Settings className="h-4 w-4" />
+            Site Settings
           </Link>
           <Link
             href="/"

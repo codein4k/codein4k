@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Youtube, Github, ArrowLeft, Share2, Calendar } from 'lucide-react'
-import Navbar from '@/components/layout/Navbar'
+import NavbarWrapper from '@/components/layout/NavbarWrapper'
 import Footer from '@/components/layout/Footer'
 import Badge from '@/components/ui/Badge'
 import VideoCard from '@/components/videos/VideoCard'
@@ -197,7 +197,7 @@ export default async function VideoDetailPage({ params }: PageProps) {
       <JsonLd data={buildVideoObjectSchema(video, pageUrl, embedUrl, thumbnail)} />
       <JsonLd data={buildBreadcrumbSchema(video, pageUrl)} />
 
-      <Navbar />
+      <NavbarWrapper />
       <main className="min-h-screen pt-20">
         <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
           {/* Breadcrumb nav — visual version matches the BreadcrumbList schema */}

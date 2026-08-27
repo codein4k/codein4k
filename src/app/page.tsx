@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
-import Navbar from '@/components/layout/Navbar'
+import NavbarWrapper from '@/components/layout/NavbarWrapper'
 import Footer from '@/components/layout/Footer'
 import HeroSection from '@/components/home/HeroSection'
 import ProductionCard from '@/components/home/ProductionCard'
 import LatestVideos from '@/components/home/LatestVideos'
 import JsonLd from '@/components/seo/JsonLd'
 import { createClient } from '@/lib/supabase/server'
+import { getSiteConfig } from '@/lib/site-config'
 import {
   LATEST_VIDEOS_COUNT,
   ORGANIZATION_SCHEMA_ID,
@@ -153,7 +154,10 @@ function buildPersonSchema() {
 // ── Page ────────────────────────────────────────────────────
 
 export default async function HomePage() {
-  const { videos, production } = await getHomeData()
+  const [{ videos, production }, config] = await Promise.all([
+    getHomeData(),
+    getSiteConfig(),
+  ])
 
   return (
     <>
@@ -162,9 +166,9 @@ export default async function HomePage() {
       <JsonLd data={buildOrganizationSchema()} />
       <JsonLd data={buildPersonSchema()} />
 
-      <Navbar />
+      <NavbarWrapper />
       <main>
-        <HeroSection />
+        <HeroSection config={config} />
         <ProductionCard production={production} />
         <LatestVideos videos={videos} />
       </main>

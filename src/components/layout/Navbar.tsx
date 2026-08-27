@@ -9,13 +9,20 @@ import { Menu, X, Youtube, Github } from 'lucide-react'
 import ThemeToggle from '@/components/ui/ThemeToggle'
 import { cn } from '@/lib/utils'
 import { SOCIAL_LINKS } from '@/lib/constants'
+import type { SiteConfig } from '@/lib/site-config'
 
 const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/videos', label: 'Videos' },
 ]
 
-export default function Navbar() {
+interface NavbarProps {
+  config?: Pick<SiteConfig, 'site_name' | 'logo_url'>
+}
+
+export default function Navbar({ config }: NavbarProps = {}) {
+  const siteName = config?.site_name ?? 'CodeIn4K'
+  const logoUrl  = config?.logo_url  ?? '/logo.png'
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
@@ -42,16 +49,16 @@ export default function Navbar() {
         <Link href="/" className="flex items-center gap-2.5 group">
           <div className="relative h-9 w-9 overflow-hidden rounded-full transition-transform duration-200 group-hover:scale-110">
             <Image
-              src="/logo.png"
-              alt="CodeIn4K Logo"
+              src={logoUrl}
+              alt={`${siteName} Logo`}
               fill
               className="object-contain"
               priority
+              unoptimized={logoUrl.startsWith('http')}
             />
           </div>
-          <span className="text-lg font-bold tracking-tight">
-            <span className="text-gradient-brand">CodeIn</span>
-            <span className="text-[rgb(var(--foreground))]">4K</span>
+          <span className="text-lg font-bold tracking-tight text-gradient-brand">
+            {siteName}
           </span>
         </Link>
 

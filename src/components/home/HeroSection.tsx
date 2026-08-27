@@ -5,7 +5,8 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Youtube, Github, Instagram, Twitter, Play, ArrowRight } from 'lucide-react'
 import Button from '@/components/ui/Button'
-import { SOCIAL_LINKS, SITE_TAGLINE } from '@/lib/constants'
+import { SOCIAL_LINKS } from '@/lib/constants'
+import type { SiteConfig } from '@/lib/site-config'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -43,7 +44,11 @@ const SOCIALS = [
   },
 ]
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  config: SiteConfig
+}
+
+export default function HeroSection({ config }: HeroSectionProps) {
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[rgb(var(--background))]">
       {/* Background grid */}
@@ -64,11 +69,12 @@ export default function HeroSection() {
         >
           <div className="relative h-24 w-24 overflow-hidden rounded-full shadow-2xl glow-blue">
             <Image
-              src="/logo.png"
-              alt="CodeIn4K"
+              src={config.logo_url}
+              alt={config.site_name}
               fill
               className="object-contain"
               priority
+              unoptimized={config.logo_url.startsWith('http')}
             />
           </div>
         </motion.div>
@@ -83,7 +89,7 @@ export default function HeroSection() {
         >
           <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium text-brand-blue">
             <span className="h-2 w-2 animate-pulse rounded-full bg-brand-blue" />
-            Now Publishing Programming Tutorials
+            {config.hero_badge_text}
           </span>
         </motion.div>
 
@@ -95,8 +101,7 @@ export default function HeroSection() {
           animate="visible"
           className="mb-4 text-5xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl"
         >
-          <span className="text-gradient-brand">CodeIn</span>
-          <span className="text-[rgb(var(--foreground))]">4K</span>
+          <span className="text-gradient-brand">{config.site_name}</span>
         </motion.h1>
 
         {/* Tagline */}
@@ -107,7 +112,7 @@ export default function HeroSection() {
           animate="visible"
           className="mb-4 text-xl font-medium text-brand-muted sm:text-2xl"
         >
-          {SITE_TAGLINE}
+          {config.site_tagline}
         </motion.p>
 
         {/* Description */}
@@ -118,8 +123,7 @@ export default function HeroSection() {
           animate="visible"
           className="mx-auto mb-10 max-w-xl text-base text-brand-muted/80 leading-relaxed sm:text-lg"
         >
-          Deep-dive programming tutorials, walkthroughs & project builds — crafted
-          for developers who want to go beyond the surface.
+          {config.hero_description}
         </motion.p>
 
         {/* CTA Buttons */}

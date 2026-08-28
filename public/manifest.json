@@ -1,0 +1,16 @@
+{
+  "name": "CodeIn4K",
+  "short_name": "CodeIn4K",
+  "description": "Deep-dive programming tutorials across all languages and technologies.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#0D1117",
+  "theme_color": "#13A1E9",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
